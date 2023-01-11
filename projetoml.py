@@ -1,7 +1,8 @@
-#primeiras imposrtações
+#bibliotecas 
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+import time 
 
 lista_compras=[]
 
@@ -9,20 +10,23 @@ principal='https://lista.mercadolivre.com.br/'
 
 busca=input('Qual será a pesquisa de hoje?: ')
 #print(principal+busca)
+time.sleep(3)
 resposta= requests.get(principal+busca)
-
+time.sleep(3)
 ml=BeautifulSoup(resposta.text, 'html.parser')
-
+time.sleep(5)
 produtos=  ml.findAll( 'div', attrs= {'class':"andes-card andes-card--flat andes-card--default ui-search-result shops__cardStyles ui-search-result--core andes-card--padding-default"})
-
+time.sleep(3)
 for produto in produtos:
-
+    
     nome_produto=produto.find('h2', attrs={'class':'ui-search-item__title'})
 
     link_produto=produto.find('a', attrs={'class':'ui-search-link'})
-
+    
     preço_produtoreal= produto.find('span', attrs={'class':'price-tag-fraction'})
+    
     preço_produtocentavos= produto.find('span', attrs={'class':'price-tag-cents'})
+    
     if (preço_produtocentavos):
         preçototal=(preço_produtoreal.text  + ',' + preço_produtocentavos.text)
     else:
