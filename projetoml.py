@@ -23,14 +23,20 @@ for produto in produtos:
 
     preço_produtoreal= produto.find('span', attrs={'class':'price-tag-fraction'})
     preço_produtocentavos= produto.find('span', attrs={'class':'price-tag-cents'})
+    if (preço_produtocentavos):
+        preçototal=(preço_produtoreal.text  + ',' + preço_produtocentavos.text)
+    else:
+        preçototal=(preço_produtoreal.text) 
+
 
     if(preço_produtocentavos):
-        lista_compras.append([nome_produto,preço_produtoreal.text, preço_produtocentavos.text,link_produto['href']])
-    else:
-      lista_compras.append([nome_produto,preço_produtoreal.text,'',link_produto['href']])
 
-# print(ml.prettify())
-    #print("titulo produto",nome_produto.text) 
+        lista_compras.append([nome_produto.text,preçototal,link_produto['href']])
+    else:
+        lista_compras.append([nome_produto.text,preço_produtoreal.text,link_produto['href']])
+
+# print(ml.ar prettify())
+    #print("Nome do Produto: ",nome_produto.text) 
     #print('link do produto:',link_produto['href'])
     #if (preço_produtocentavos):
         #print('Preço do produto: R$',preço_produtoreal.text  + ',' + preço_produtocentavos.text)
@@ -38,8 +44,8 @@ for produto in produtos:
        #print('Preço do produto: R$',preço_produtoreal.text) 
     #print('\n\n')
 
-#class="andes-card andes-card--flat andes-card--default ui-search-result shops__cardStyles ui-search-result--core andes-card--padding-default"
 
-pesquisa=pd.DataFrame(lista_compras,columns=['Produto','Preço produto real','Preço centavos produto','Link produto'])
+pesquisa=pd.DataFrame(lista_compras,columns=['Produto','Preço produto','Link produto'])
 print(pesquisa)
-pesquisa.to_excel('resultado_pesquisa.xlsx', index=False)
+
+#pesquisa.to_excel('resultado_pesquisa.xlsx', index=False)
