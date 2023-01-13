@@ -10,13 +10,13 @@ principal='https://lista.mercadolivre.com.br/'
 
 busca=input('Qual será a pesquisa de hoje?: ')
 #print(principal+busca)
-time.sleep(3)
+
 resposta= requests.get(principal+busca)
-time.sleep(3)
+
 ml=BeautifulSoup(resposta.text, 'html.parser')
-time.sleep(5)
+
 produtos=  ml.findAll( 'div', attrs= {'class':"andes-card andes-card--flat andes-card--default ui-search-result shops__cardStyles ui-search-result--core andes-card--padding-default"})
-time.sleep(3)
+
 for produto in produtos:
     
     nome_produto=produto.find('h2', attrs={'class':'ui-search-item__title'})
@@ -38,7 +38,7 @@ for produto in produtos:
         lista_compras.append([nome_produto.text,preçototal,link_produto['href']])
     else:
         lista_compras.append([nome_produto.text,preço_produtoreal.text,link_produto['href']])
-
+    time.sleep(1)
 # print(ml.ar prettify())
     #print("Nome do Produto: ",nome_produto.text) 
     #print('link do produto:',link_produto['href'])
